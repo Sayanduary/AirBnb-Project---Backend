@@ -1,5 +1,6 @@
 
 const express = require('express');
+const path = require('path');
 
 
 //local module
@@ -13,12 +14,12 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/host', userRouter);
+app.use(userRouter);
 app.use('/host', hostRouter);
 
 app.use((req, res) => {
-  res.status(404).send(`<h1>Your Page is not found</h1>`)
-})
+  res.status(404).sendFile(path.join(__dirname, 'views', '404page.html'));
+});
 
 
 const PORT = 3001;
